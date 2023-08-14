@@ -9,7 +9,7 @@
       <img src="{{ collection.featured_image | img_url: 'medium' }}" alt="Image">
       </a>
     </div>
-    <button class="popup-open" data-id ="{{ collection.variants[0].id }}" data-name="{{ collection.title  }}" data-price="{{ collection.price }}" data-image="{{ collection.featured_image  | img_url: 'large' }}" data-link = "{{ collection.url }}">Popup</button>
+    <button class="popup-open" data-id ="{{ collection.variants[0].id }}" data-name="{{ collection.title  }}" data-price="{{ collection.price | money_with_currency}}" data-image="{{ collection.featured_image  | img_url: 'large' }}" data-link = "{{ collection.url }}">Popup</button>
   
   </div>
 
@@ -23,7 +23,7 @@
     <div class="detail-container">
       <button class="popup-container-close">Close</button>
       <p class="popup-container-title"> </p>
-      <p>{{ collection.price | money_with_currency}}</p>
+     
       <p class="popup-container-price"></p>  
       <button class="popup-container-sizechart" >Size Chart</button>
     </div>
