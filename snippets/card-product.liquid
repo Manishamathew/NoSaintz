@@ -59,42 +59,30 @@
           <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
             <div class="card__content">
 
-              <div class="product-image">
-                {% if card_product.featured_media %}
-                  <img src="{{ card_product.featured_media | img_url: 'large' }}" alt="{{ card_product.title | escape }}">
-                {% endif %}
-              </div>
+                 <h3
+            class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
+            {% if card_product.featured_media or settings.card_style == 'card' %}
+              id="title-{{ section_id }}-{{ card_product.id }}"
+            {% endif %}
+          >
+            <a
+              href="{{ card_product.url }}"
+              id="CardLink-{{ section_id }}-{{ card_product.id }}"
+              class="full-unstyled-link"
+              aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
+            > 
+              {{ card_product.title | escape }}
+          </a>
+          </h3>
 
-              <div class="product-title">
-                <h3
-                  class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
-                  {% if card_product.featured_media or settings.card_style == 'card' %}
-                    id="title-{{ section_id }}-{{ card_product.id }}"
-                  {% endif %}
-                >
-                  <a
-                    href="{{ card_product.url }}"
-                    id="CardLink-{{ section_id }}-{{ card_product.id }}"
-                    class="full-unstyled-link"
-                    aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
-                  > 
-                    {{ card_product.title | escape }}
-                  </a>
-                </h3>
-              </div>
-
+              <div class="product-title">{{ card_product.title | escape }}</div>
               <div class="product-price">
                 {% render 'price', product: card_product, show_compare_at_price: true %}
               </div>
-
-              <div class="popup-button">
-                <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
-              </div>
-
+              <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
               {% if show_vendor %}
                 <div class="product-vendor">{{ card_product.vendor | escape }}</div>
               {% endif %}
-              
               {% if show_rating %}
                 <div class="product-rating">
                   {% render 'component-rating', rating: card_product.rating %}
@@ -149,8 +137,6 @@
       });
     });
   </script>
-
-
   <style>
     .popup-container {
       display: none;
