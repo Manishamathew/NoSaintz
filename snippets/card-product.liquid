@@ -102,21 +102,21 @@
     </div>
 
     <!-- Popup Container -->
-    <div class="popup-container" id="popup-{{ card_product.id }}">
-      <div class="popup-container-content">
-        <div class="image-container">
-          <img class="popup-container-image" src="{{ card_product.featured_media | img_url: 'large' }}">
-        </div>
-        <div class="detail-container">
-          <button class="popup-container-close button">Close</button>
-          <p class="popup-container-title">{{ card_product.title | escape }}</p>
-          <p class="popup-container-price">
-            {% render 'price', product: card_product, show_compare_at_price: true %}
-          </p>
-          <button class="popup-container-sizechart button">Size Chart</button>
-        </div>
-      </div>
+ <div class="popup-container" id="popup-{{ card_product.id }}">
+  <div class="popup-container-content">
+    <div class="image-container">
+      <img class="popup-container-image" src="{{ card_product.featured_media | img_url: 'large' }}">
     </div>
+    <div class="detail-container">
+      <button class="popup-container-close button">Close</button>
+      <p class="popup-container-title">{{ card_product.title | escape }}</p>
+      <p class="popup-container-price">
+        {% render 'price', product: card_product, show_compare_at_price: true %}
+      </p>
+      <button class="popup-container-sizechart button">Size Chart</button>
+    </div>
+  </div>
+</div>
   </div>
 
   <script>
