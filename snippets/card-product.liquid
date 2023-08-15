@@ -55,6 +55,9 @@
             </div>
           </div>
         {%- endif -%}
+  <div class="flickity-container">
+    {%- for card_product in card_products -%}
+      <div class="card-wrapper product-card-wrapper underline-links-hover">
         <div class="product-card-content">
           <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
             <div class="card__content">
@@ -92,6 +95,10 @@
         </div>
       </div>
     </div>
+           </div>
+    {%- endfor -%}
+  </div>
+
     <!-- Popup Container -->
     <div class="popup-container" id="popup-{{ card_product.id }}">
       <div class="popup-container-content">
@@ -109,33 +116,44 @@
       </div>
     </div>
   </div>
+
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const modalTriggerButtons = document.querySelectorAll('.popup-open');
-      const modalCloseButtons = document.querySelectorAll('.popup-container-close');
-
-      modalTriggerButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          const modalId = button.getAttribute('data-id');
-          const modal = document.getElementById(`popup-${modalId}`);
-
-          if (modal) {
-            modal.style.display = 'flex';
-          }
-        });
+  document.addEventListener('DOMContentLoaded', function () {
+    const flickityContainer = document.querySelector('.flickity-container');
+    
+    if (flickityContainer) {
+      const flickityInstance = new Flickity(flickityContainer, {
+        cellAlign: 'left',
+        wrapAround: true,
+       
       });
+    }
+    
+    const modalTriggerButtons = document.querySelectorAll('.popup-open');
+    const modalCloseButtons = document.querySelectorAll('.popup-container-close');
 
-      modalCloseButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          const modal = button.closest('.popup-container');
+    modalTriggerButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        const modalId = button.getAttribute('data-id');
+        const modal = document.getElementById(`popup-${modalId}`);
 
-          if (modal) {
-            modal.style.display = 'none';
-          }
-        });
+        if (modal) {
+          modal.style.display = 'flex';
+        }
       });
     });
-  </script>
+
+    modalCloseButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        const modal = button.closest('.popup-container');
+
+        if (modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
   <style>
     .popup-container {
       display: none;
