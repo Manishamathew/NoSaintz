@@ -10,6 +10,9 @@
       assign ratio = 1
     endif
   -%}
+     <div class="flickity-container">
+    {%- for card_product in card_products -%}
+      <div class="card-wrapper product-card-wrapper underline-links-hover">
   <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div
       class="
@@ -55,9 +58,7 @@
             </div>
           </div>
         {%- endif -%}
-   <div class="flickity-container">
-    {%- for card_product in card_products -%}
-      <div class="card-wrapper product-card-wrapper underline-links-hover">
+
         <div class="product-card-content">
           <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
             <div class="card__content">
@@ -95,6 +96,7 @@
         </div>
       </div>
     </div>
+   
     <!-- Popup Container -->
     <div class="popup-container" id="popup-{{ card_product.id }}">
       <div class="popup-container-content">
@@ -112,7 +114,7 @@
       </div>
     </div>
   </div>
-    </div>
+         </div>
   {%  endfor %}
   </div>
   <script>
