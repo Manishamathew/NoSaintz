@@ -78,10 +78,6 @@ data-flickity='{
     <script id="EnableZoomOnHover-featured" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
   {% endif %}
 </div>
-{% endfor %}
-
-
-
 
 
 <div class="popup-container" id="popup-{{ card_product.id }}">
@@ -101,6 +97,7 @@ data-flickity='{
     </div>
   </div>
   </div>
+  {% endfor %}
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
