@@ -58,28 +58,28 @@
         <div class="product-card-content">
           <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
             <div class="card__content">
-
-                 <h3
-            class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
-            {% if card_product.featured_media or settings.card_style == 'card' %}
-              id="title-{{ section_id }}-{{ card_product.id }}"
-            {% endif %}
-          >
-            <a
-              href="{{ card_product.url }}"
-              id="CardLink-{{ section_id }}-{{ card_product.id }}"
-              class="full-unstyled-link"
-              aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
-            > 
-              {{ card_product.title | escape }}
-          </a>
-          </h3>
-
-              <div class="product-title">{{ card_product.title | escape }}</div>
+              <div class="product-image">
+                <img src="{{ card_product.featured_media | img_url: 'large' }}" alt="{{ card_product.title | escape }}">
+              </div>
+              <h3
+                class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
+                {% if card_product.featured_media or settings.card_style == 'card' %}
+                  id="title-{{ section_id }}-{{ card_product.id }}"
+                {% endif %}
+              >
+                <a
+                  href="{{ card_product.url }}"
+                  id="CardLink-{{ section_id }}-{{ card_product.id }}"
+                  class="full-unstyled-link"
+                  aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
+                > 
+                  {{ card_product.title | escape }}
+                </a>
+              </h3>
+              <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
               <div class="product-price">
                 {% render 'price', product: card_product, show_compare_at_price: true %}
               </div>
-              <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
               {% if show_vendor %}
                 <div class="product-vendor">{{ card_product.vendor | escape }}</div>
               {% endif %}
@@ -212,13 +212,13 @@
     .modal-open {
       display: flex;
     }
-     .product-card-content{
-    height: 100px;
-    position: absolute;
-    bottom: 10px;
-  }
-    .card__media{
-      height:62%;
+    .product-card-content {
+      height: 100px;
+      position: absolute;
+      bottom: 10px;
+    }
+    .card__media {
+      height: 62%;
     }
   </style>
 {% endif %}
