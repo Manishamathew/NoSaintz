@@ -4,5 +4,13 @@
     "market": "us"
   },
   "sections": {
+    "announcement-bar": {
+      "settings": {
+        "enable_country_selector": true,
+        "enable_language_selector": true
+      },
+      "blocks": {
+      }
+    }
   }
 }
