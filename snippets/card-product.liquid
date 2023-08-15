@@ -219,5 +219,28 @@
     .card__media{
       height:62%;
     }
+    
+element.style {
+    --ratio-percent: 100.0%;
+}
+.card--card.gradient, .card__inner.gradient {
+    transform: perspective(0);
+}
+.card--card, .card--standard .card__inner {
+    position: relative;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+    border: var(--border-width) solid rgba(var(--color-foreground),var(--border-opacity));
+}
+.card__inner {
+    width: 100%;
+}
+.ratio {
+    display: flex;
+    position: relative;
+    align-items: stretch;
+}
+.gradient {
+    background: white;
   </style>
 {% endif %}
