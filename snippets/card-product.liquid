@@ -1,59 +1,72 @@
 {%- if card_product and card_product != empty -%}
-  <div class="flickity-container">
+  {%- liquid
+    assign ratio = 1
+    if card_product.featured_media and media_aspect_ratio == 'portrait'
+      assign ratio = 0.8
+    elsif card_product.featured_media and media_aspect_ratio == 'adapt'
+      assign ratio = card_product.featured_media.aspect_ratio
+    endif
+    if ratio == 0 or ratio == null
+      assign ratio = 1
+    endif
+  -%}
+  <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div class="carousel">
       {%- for card_product in card_products -%}
-        {%- liquid
-          assign ratio = 1
-          if card_product.featured_media and media_aspect_ratio == 'portrait'
-            assign ratio = 0.8
-          elsif card_product.featured_media and media_aspect_ratio == 'adapt'
-            assign ratio = card_product.featured_media.aspect_ratio
-          endif
-          if ratio == 0 or ratio == null
-            assign ratio = 1
-          endif
-        -%}
         <div class="carousel-cell">
-          <div class="card-wrapper product-card-wrapper underline-links-hover">
-        <div
-          class="
-            card card--{{ settings.card_style }}
-            {% if card_product.featured_media %} card--media{% else %} card--text{% endif %}
-            {% if settings.card_style == 'card' %} color-{{ settings.card_color_scheme }} gradient{% endif %}
-            {% if image_shape and image_shape != 'default' %} card--shape{% endif %}
-            {% if extend_height %} card--extend-height{% endif %}
-            {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}
-            {% if horizontal_class %} card--horizontal{% endif %}
-          "
-          style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
-        >
           <div
-            class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
+            class="
+              card card--{{ settings.card_style }}
+              {% if card_product.featured_media %} card--media{% else %} card--text{% endif %}
+              {% if settings.card_style == 'card' %} color-{{ settings.card_color_scheme }} gradient{% endif %}
+              {% if image_shape and image_shape != 'default' %} card--shape{% endif %}
+              {% if extend_height %} card--extend-height{% endif %}
+              {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}
+              {% if horizontal_class %} card--horizontal{% endif %}
+            "
             style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
           >
-            {%- if card_product.featured_media -%}
-              <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
-                <div class="media media--transparent media--hover-effect">
-                  <img
-                    src="{{ card_product.featured_media | img_url: 'large' }}"
-                    alt="{{ card_product.featured_media.alt | escape }}"
-                    class="motion-reduce"
-                    width="{{ card_product.featured_media.width }}"
-                    height="{{ card_product.featured_media.height }}"
-                  >
+            <div
+              class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
+              style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+            >
+              {%- if card_product.featured_media -%}
+                <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
+                  <div class="media media--transparent media--hover-effect">
+                    {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+                    <img
+                      srcset="
+                        {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+                        {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
+                        {%- if card_product.featured_media.width >= 533 -%}{{ card_product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+                        {%- if card_product.featured_media.width >= 720 -%}{{ card_product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+                        {%- if card_product.featured_media.width >= 940 -%}{{ card_product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
+                        {%- if card_product.featured_media.width >= 1066 -%}{{ card_product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
+                        {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
+                      "
+                      src="{{ card_product.featured_media | image_url: width: 533 }}"
+                      sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                      alt="{{ card_product.featured_media.alt | escape }}"
+                      class="motion-reduce"
+                      {% unless lazy_load == false %}
+                        loading="lazy"
+                      {% endunless %}
+                      width="{{ card_product.featured_media.width }}"
+                      height="{{ card_product.featured_media.height }}"
+                    >
+                    {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
+                  </div>
                 </div>
-              </div>
-            {%- endif -%}
-
-            <div class="product-card-content">
-              <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
-                <div class="card__content">
-                  <h3
-                    class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
-                    {% if card_product.featured_media or settings.card_style == 'card' %}
-                      id="title-{{ section_id }}-{{ card_product.id }}"
-                    {% endif %}
-                  >
+              {%- endif -%}
+              <div class="product-card-content">
+                <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
+                  <div class="card__content">
+                    <h3
+                      class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
+                      {% if card_product.featured_media or settings.card_style == 'card' %}
+                        id="title-{{ section_id }}-{{ card_product.id }}"
+                      {% endif %}
+                    ></h3>
                     <a
                       href="{{ card_product.url }}"
                       id="CardLink-{{ section_id }}-{{ card_product.id }}"
@@ -62,45 +75,30 @@
                     >
                       {{ card_product.title | escape }}
                     </a>
-                  </h3>
-                  <div class="product-price">
-                    {% render 'price', product: card_product, show_compare_at_price: true %}
-                  </div>
-                  <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
-                  {% if show_vendor %}
-                    <div class="product-vendor">{{ card_product.vendor | escape }}</div>
-                  {% endif %}
-                  {% if show_rating %}
-                    <div class="product-rating">
-                      {% render 'component-rating', rating: card_product.rating %}
+                    <div class="product-price">
+                      {% render 'price', product: card_product, show_compare_at_price: true %}
                     </div>
-                  {% endif %}
+                    <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
+                    {% if show_vendor %}
+                      <div class="product-vendor">{{ card_product.vendor | escape }}</div>
+                    {% endif %}
+                    {% if show_rating %}
+                      <div class="product-rating">
+                        {% render 'component-rating', rating: card_product.rating %}
+                      </div>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Popup Container -->
-        <div class="popup-container" id="popup-{{ card_product.id }}">
-          <div class="popup-container-content">
-            <div class="image-container">
-              <img class="popup-container-image" src="{{ card_product.featured_media | img_url: 'large' }}">
-            </div>
-            <div class="detail-container">
-              <button class="popup-container-close button">Close</button>
-              <p class="popup-container-title">{{ card_product.title | escape }}</p>
-              <p class="popup-container-price">
-                {% render 'price', product: card_product, show_compare_at_price: true %}
-              </p>
-              <button class="popup-container-sizechart button">Size Chart</button>
-            </div>
-          </div>
-         </div>
-        </div>
-        </div>
- 
       {%- endfor %}
-       </div>
+    </div>
+    <!-- Popup Container -->
+    <div class="popup-container" id="popup-{{ card_product.id }}">
+      <!-- ... Popup content ... -->
+    </div>
   </div>
 
   <script>
