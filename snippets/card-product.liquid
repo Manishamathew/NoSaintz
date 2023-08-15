@@ -55,7 +55,7 @@
             </div>
           </div>
         {%- endif -%}
-  <div class="flickity-container">
+   <div class="flickity-container">
     {%- for card_product in card_products -%}
       <div class="card-wrapper product-card-wrapper underline-links-hover">
         <div class="product-card-content">
@@ -95,10 +95,6 @@
         </div>
       </div>
     </div>
-           </div>
-    {%- endfor -%}
-  </div>
-
     <!-- Popup Container -->
     <div class="popup-container" id="popup-{{ card_product.id }}">
       <div class="popup-container-content">
@@ -116,13 +112,43 @@
       </div>
     </div>
   </div>
+    </div>
+  {%  endfor %}
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const modalTriggerButtons = document.querySelectorAll('.popup-open');
+      const modalCloseButtons = document.querySelectorAll('.popup-container-close');
 
+      modalTriggerButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          const modalId = button.getAttribute('data-id');
+          const modal = document.getElementById(`popup-${modalId}`);
+
+          if (modal) {
+            modal.style.display = 'flex';
+          }
+        });
+      });
+
+      modalCloseButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          const modal = button.closest('.popup-container');
+
+          if (modal) {
+            modal.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     const flickityContainer = document.querySelector('.flickity-container');
     
     if (flickityContainer) {
       const flickityInstance = new Flickity(flickityContainer, {
+        // Flickity options and settings here
         cellAlign: 'left',
         wrapAround: true,
        
