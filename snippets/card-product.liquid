@@ -55,11 +55,9 @@
             </div>
           </div>
         {%- endif -%}
-
-        <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
-          <div class="card__content">
-
-            <div class="product-card-content">
+        <div class="product-card-content">
+          <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
+            <div class="card__content">
               <div class="product-title">{{ card_product.title | escape }}</div>
               <div class="product-price">
                 {% render 'price', product: card_product, show_compare_at_price: true %}
@@ -72,35 +70,12 @@
                   {% render 'component-rating', rating: card_product.rating %}
                 </div>
               {% endif %}
-
-                    <h3
-            class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
-            {% if card_product.featured_media or settings.card_style == 'card' %}
-              id="title-{{ section_id }}-{{ card_product.id }}"
-            {% endif %}
-          >
-            <a
-              href="{{ card_product.url }}"
-              id="CardLink-{{ section_id }}-{{ card_product.id }}"
-              class="full-unstyled-link"
-              aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
-            > 
-              {{ card_product.title | escape }}
-           </a>
-          </h3>
-            </div>
-            
-            <div class="popup-button">
               <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
             </div>
-
-        
-
           </div>
         </div>
       </div>
     </div>
-
     <!-- Popup Container -->
     <div class="popup-container" id="popup-{{ card_product.id }}">
       <div class="popup-container-content">
@@ -118,7 +93,6 @@
       </div>
     </div>
   </div>
-
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const modalTriggerButtons = document.querySelectorAll('.popup-open');
@@ -146,92 +120,77 @@
       });
     });
   </script>
-
+  <style>
+    .popup-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .popup-container-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 80%;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .popup-container-image {
+      max-width: 100%;
+      height: auto;
+    }
+    .popup-container-close {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+    .popup-container-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .popup-container-price {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .popup-container-sizechart {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+    .modal-open {
+      display: flex;
+    }
+  </style>
 {% endif %}
-
- <style>
-
-  .popup-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-
-  .popup-container-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 80%;
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  .popup-container-image {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .popup-container-close {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-  }
-
-  .popup-container-title {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .popup-container-price {
-    font-size: 16px;
-    margin-top: 10px;
-  }
-
-  .popup-container-sizechart {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-  }
-
-
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 80%;
-  }
-
-  .modal-open {
-    display: flex;
-  }
-
-
-</style> 
