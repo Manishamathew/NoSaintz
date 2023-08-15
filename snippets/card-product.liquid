@@ -164,6 +164,8 @@
             <!-- </a> -->
           </h3>
 <button>Quick View</button>
+      <button class="popup-open" data-id ="{{ collection.variants[0].id }}" data-name="{{ collection.title  }}" data-price="{{ collection.price }}" data-image="{{ collection.featured_image  | img_url: 'large' }}" data-link = "{{ collection.url }}">Popup</button>
+
         <button class="modal-trigger-button" data-modal="#modal-{{ card_product.id }}">Open Modal</button>
           <div class="card-information">
             {%- if show_vendor -%}
