@@ -1,18 +1,20 @@
 {%- if card_product and card_product != empty -%}
   <div class="flickity-container">
-    {%- for card_product in card_products -%}
-      {%- liquid
-        assign ratio = 1
-        if card_product.featured_media and media_aspect_ratio == 'portrait'
-          assign ratio = 0.8
-        elsif card_product.featured_media and media_aspect_ratio == 'adapt'
-          assign ratio = card_product.featured_media.aspect_ratio
-        endif
-        if ratio == 0 or ratio == null
+    <div class="carousel">
+      {%- for card_product in card_products -%}
+        {%- liquid
           assign ratio = 1
-        endif
-      -%}
-      <div class="card-wrapper product-card-wrapper underline-links-hover">
+          if card_product.featured_media and media_aspect_ratio == 'portrait'
+            assign ratio = 0.8
+          elsif card_product.featured_media and media_aspect_ratio == 'adapt'
+            assign ratio = card_product.featured_media.aspect_ratio
+          endif
+          if ratio == 0 or ratio == null
+            assign ratio = 1
+          endif
+        -%}
+        <div class="carousel-cell">
+          <div class="card-wrapper product-card-wrapper underline-links-hover">
         <div
           class="
             card card--{{ settings.card_style }}
@@ -93,10 +95,14 @@
               <button class="popup-container-sizechart button">Size Chart</button>
             </div>
           </div>
+         </div>
         </div>
-      </div>
-    {%- endfor %}
+        </div>
+ 
+      {%- endfor %}
+       </div>
   </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const modalTriggerButtons = document.querySelectorAll('.popup-open');
