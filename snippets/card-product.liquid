@@ -58,14 +58,11 @@
         <div class="product-card-content">
           <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
             <div class="card__content">
-              <div class="product-image">
-                <img src="{{ card_product.featured_media | img_url: 'large' }}" alt="{{ card_product.title | escape }}">
-              </div>
               <div class="product-title">{{ card_product.title | escape }}</div>
-              <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
               <div class="product-price">
                 {% render 'price', product: card_product, show_compare_at_price: true %}
               </div>
+              <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
               {% if show_vendor %}
                 <div class="product-vendor">{{ card_product.vendor | escape }}</div>
               {% endif %}
