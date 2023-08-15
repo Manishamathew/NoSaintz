@@ -1,80 +1,40 @@
-{%- if card_product and card_product != empty -%}
+{% if card_product and card_product != empty %}
   <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div class="slider">
-      {%- if card_product.featured_media -%}
+      {% if card_product.featured_media %}
         <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
           <div class="media media--transparent media--hover-effect">
             <div class="slider-container">
               <div class="slider-item">
                 <img src="{{ card_product.featured_media | image_url: width: 533 }}" alt="{{ card_product.featured_media.alt | escape }}">
               </div>
-              {%- for media in card_product.media -%}
-                {%- if media != null and show_secondary_image -%}
+              {% for media in card_product.media %}
+                {% if media != null and show_secondary_image %}
                   <div class="slider-item">
                     <img src="{{ media | image_url: width: 533 }}" alt="">
                   </div>
-                {%- endif -%}
-              {%- endfor -%}
+                {% endif %}
+              {% endfor %}
             </div>
             <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
           </div>
         </div>
-      {%- endif -%}
+      {% endif %}
       <div class="product-card-content">
-        <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
-          <div class="card__content">
-            <h3
-              class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
-              {% if card_product.featured_media or settings.card_style == 'card' %}
-                id="title-{{ section_id }}-{{ card_product.id }}"
-              {% endif %}
-            >
-              <a
-                href="{{ card_product.url }}"
-                id="CardLink-{{ section_id }}-{{ card_product.id }}"
-                class="full-unstyled-link"
-                aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
-              >
-                {{ card_product.title | escape }}
-              </a>
-            </h3>
-            <div class="product-price">
-              {% render 'price', product: card_product, show_compare_at_price: true %}
-            </div>
-            {% if show_vendor %}
-              <div class="product-vendor">{{ card_product.vendor | escape }}</div>
-            {% endif %}
-            {% if show_rating %}
-              <div class="product-rating">
-                {% render 'component-rating', rating: card_product.rating %}
-              </div>
-            {% endif %}
-          </div>
-        </div>
+        <!-- Your card content here -->
       </div>
     </div>
     <!-- Popup Container -->
     <div class="popup-container" id="popup-{{ card_product.id }}">
-      <div class="popup-container-content">
-        <div class="image-container">
-          <img class="popup-container-image" src="{{ card_product.featured_media | img_url: 'large' }}">
-        </div>
-        <div class="detail-container">
-          <button class="popup-container-close button">Close</button>
-          <p class="popup-container-title">{{ card_product.title | escape }}</p>
-          <p class="popup-container-price">
-            {% render 'price', product: card_product, show_compare_at_price: true %}
-          </p>
-          <button class="popup-container-sizechart button">Size Chart</button>
-        </div>
-      </div>
+      <!-- Your popup container content here -->
     </div>
   </div>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       $('.slider-container').slick({
-        // Slick Slider configuration options
         dots: true,
         infinite: true,
         speed: 300,
@@ -83,32 +43,53 @@
         // Add more options as needed
       });
 
-      const modalTriggerButtons = document.querySelectorAll('.popup-open');
-      const modalCloseButtons = document.querySelectorAll('.popup-container-close');
-
-      modalTriggerButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          const modalId = button.getAttribute('data-id');
-          const modal = document.getElementById(`popup-${modalId}`);
-
-          if (modal) {
-            modal.style.display = 'flex';
-          }
-        });
-      });
-
-      modalCloseButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          const modal = button.closest('.popup-container');
-
-          if (modal) {
-            modal.style.display = 'none';
-          }
-        });
-      });
+      // Rest of your scripts
     });
   </script>
+
+ 
 {% endif %}
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    $('.slider-container').slick({
+      dots: true,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 1,
+      adaptiveHeight: true,
+      // Add more options as needed
+    });
+
+    const modalTriggerButtons = document.querySelectorAll('.popup-open');
+    const modalCloseButtons = document.querySelectorAll('.popup-container-close');
+
+    modalTriggerButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        const modalId = button.getAttribute('data-id');
+        const modal = document.getElementById(`popup-${modalId}`);
+
+        if (modal) {
+          modal.style.display = 'flex';
+        }
+      });
+    });
+
+    modalCloseButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        const modal = button.closest('.popup-container');
+
+        if (modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+
+    // Add any other scripts and interactions here
+  });
+</script>
+
 
   <style>
     .slider-item {
