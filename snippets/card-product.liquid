@@ -11,83 +11,62 @@
     endif
   -%}
   <div class="card-wrapper product-card-wrapper underline-links-hover">
-    <div
-      class="
-        card card--{{ settings.card_style }}
-        {% if card_product.featured_media %} card--media{% else %} card--text{% endif %}
-        {% if settings.card_style == 'card' %} color-{{ settings.card_color_scheme }} gradient{% endif %}
-        {% if image_shape and image_shape != 'default' %} card--shape{% endif %}
-        {% if extend_height %} card--extend-height{% endif %}
-        {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}
-        {% if horizontal_class %} card--horizontal{% endif %}
-      "
-      style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
-    >
-      <div
-        class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
-        style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
-      >
-        {%- if card_product.featured_media -%}
-          <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
-            <div class="media media--transparent media--hover-effect">
-              {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
-              <img
-                srcset="
-                  {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
-                  {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
-                  {%- if card_product.featured_media.width >= 533 -%}{{ card_product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
-                  {%- if card_product.featured_media.width >= 720 -%}{{ card_product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
-                  {%- if card_product.featured_media.width >= 940 -%}{{ card_product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
-                  {%- if card_product.featured_media.width >= 1066 -%}{{ card_product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
-                  {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
-                "
-                src="{{ card_product.featured_media | image_url: width: 533 }}"
-                sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                alt="{{ card_product.featured_media.alt | escape }}"
-                class="motion-reduce"
-                {% unless lazy_load == false %}
-                  loading="lazy"
-                {% endunless %}
-                width="{{ card_product.featured_media.width }}"
-                height="{{ card_product.featured_media.height }}"
-              >
-              {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
-            </div>
-          </div>
-        {%- endif -%}
-        <div class="product-card-content">
-          <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
-            <div class="card__content">
-
-                 <h3
-            class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
-            {% if card_product.featured_media or settings.card_style == 'card' %}
-              id="title-{{ section_id }}-{{ card_product.id }}"
-            {% endif %}
-          >
-
-          </h3>
-                          <a
-              href="{{ card_product.url }}"
-              id="CardLink-{{ section_id }}-{{ card_product.id }}"
-              class="full-unstyled-link"
-              aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
-            > 
-              {{ card_product.title | escape }}
-          </a>
-              <div class="product-price">
-                {% render 'price', product: card_product, show_compare_at_price: true %}
+    <div class="slider">
+      {%- if card_product.featured_media -%}
+        <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
+          <div class="media media--transparent media--hover-effect">
+            <!-- Slick Slider code for images -->
+            <div class="slider-container">
+              <div class="slider-item">
+                <img src="{{ card_product.featured_media | image_url: width: 533 }}" alt="{{ card_product.featured_media.alt | escape }}">
               </div>
-              <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
-              {% if show_vendor %}
-                <div class="product-vendor">{{ card_product.vendor | escape }}</div>
-              {% endif %}
-              {% if show_rating %}
-                <div class="product-rating">
-                  {% render 'component-rating', rating: card_product.rating %}
+              {%- if card_product.media[1] != null and show_secondary_image -%}
+                <div class="slider-item">
+                  <img src="{{ card_product.media[1] | image_url: width: 533 }}" alt="">
                 </div>
-              {% endif %}
+              {%- endif -%}
+              <!-- Add more slider items as needed -->
             </div>
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                $('.slider-container').slick({
+                  // Slick Slider configuration options
+                });
+              });
+            </script>
+          </div>
+        </div>
+      {%- endif -%}
+      <div class="product-card-content">
+        <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
+          <div class="card__content">
+            <h3
+              class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
+              {% if card_product.featured_media or settings.card_style == 'card' %}
+                id="title-{{ section_id }}-{{ card_product.id }}"
+              {% endif %}
+            >
+              <a
+                href="{{ card_product.url }}"
+                id="CardLink-{{ section_id }}-{{ card_product.id }}"
+                class="full-unstyled-link"
+                aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
+              >
+                {{ card_product.title | escape }}
+              </a>
+            </h3>
+            <div class="product-price">
+              {% render 'price', product: card_product, show_compare_at_price: true %}
+            </div>
+            <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
+            {% if show_vendor %}
+              <div class="product-vendor">{{ card_product.vendor | escape }}</div>
+            {% endif %}
+            {% if show_rating %}
+              <div class="product-rating">
+                {% render 'component-rating', rating: card_product.rating %}
+              </div>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -109,34 +88,11 @@
       </div>
     </div>
   </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const modalTriggerButtons = document.querySelectorAll('.popup-open');
-      const modalCloseButtons = document.querySelectorAll('.popup-container-close');
-
-      modalTriggerButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          const modalId = button.getAttribute('data-id');
-          const modal = document.getElementById(`popup-${modalId}`);
-
-          if (modal) {
-            modal.style.display = 'flex';
-          }
-        });
-      });
-
-      modalCloseButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          const modal = button.closest('.popup-container');
-
-          if (modal) {
-            modal.style.display = 'none';
-          }
-        });
-      });
-    });
-  </script>
   <style>
+    .slider-item {
+      flex: 0 0 auto;
+       .slider-container {
+      display: flex;
     .popup-container {
       display: none;
       position: fixed;
