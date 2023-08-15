@@ -54,7 +54,7 @@ data-flickity='{
 </div>
 {% endfor %}
 
-{% comment %}
+
 {% for product in collection_main.products limit: collection_limit %}
 {%- if product.metafields.inventory.ShappifyHidden == 'true' -%}{%- continue -%}{%- endif -%}
 {% assign first_variant = product.selected_or_first_available_variant %}
@@ -79,7 +79,7 @@ data-flickity='{
   {% endif %}
 </div>
 {% endfor %}
-{% endcomment %}
+
 </div>
 </div>
 
