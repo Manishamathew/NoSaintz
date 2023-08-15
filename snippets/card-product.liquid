@@ -55,27 +55,25 @@
             </div>
           </div>
         {%- endif -%}
-      </div>
-    </div>
-    <div class="product-card-content">
-      <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
-        <div class="card__content">
-          <div class="product-title">{{ card_product.title | escape }}</div>
-          <div class="product-price">
-            {% render 'price', product: card_product, show_compare_at_price: true %}
-          </div>
-          {% if show_vendor %}
-            <div class="product-vendor">{{ card_product.vendor | escape }}</div>
-          {% endif %}
-          {% if show_rating %}
-            <div class="product-rating">
-              {% render 'component-rating', rating: card_product.rating %}
+        <div class="product-card-content">
+          <div class="card__body{% if card_product.featured_media or settings.card_style == 'standard' %} ratio-content{% endif %}">
+            <div class="card__content">
+              <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
+              <div class="product-title">{{ card_product.title | escape }}</div>
+              <div class="product-price">
+                {% render 'price', product: card_product, show_compare_at_price: true %}
+              </div>
+              {% if show_vendor %}
+                <div class="product-vendor">{{ card_product.vendor | escape }}</div>
+              {% endif %}
+              {% if show_rating %}
+                <div class="product-rating">
+                  {% render 'component-rating', rating: card_product.rating %}
+                </div>
+              {% endif %}
             </div>
-          {% endif %}
+          </div>
         </div>
-      </div>
-      <div class="popup-button">
-        <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
       </div>
     </div>
     <!-- Popup Container -->
@@ -143,7 +141,7 @@
       position: relative;
       display: flex;
       align-items: center;
-      flex-direction: column; /* New line */
+      flex-direction: column;
     }
     .popup-container-image {
       max-width: 100%;
@@ -160,7 +158,7 @@
     .popup-container-title {
       font-size: 18px;
       font-weight: bold;
-      margin-top: 10px; /* New line */
+      margin-top: 10px;
     }
     .popup-container-price {
       font-size: 16px;
@@ -174,7 +172,28 @@
       border-radius: 4px;
       font-size: 14px;
       cursor: pointer;
-      margin-top: 10px; /* New line */
+      margin-top: 10px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+    .modal-open {
+      display: flex;
     }
   </style>
 {% endif %}
