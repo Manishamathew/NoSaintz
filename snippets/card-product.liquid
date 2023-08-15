@@ -26,45 +26,14 @@
                 id="title-{{ section_id }}-{{ card_product.id }}"
               {% endif %}
             >
-              <!-- <a
-                href="{{ card_product.url }}"
-                id="CardLink-{{ section_id }}-{{ card_product.id }}"
-                class="full-unstyled-link"
-                aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
-              > -->
-                {{ card_product.title | escape }}
-              <!-- </a> -->
+              {{ card_product.title | escape }}
             </h3>
             <div class="popup-buttons">
               <button class="popup-open" data-id="{{ card_product.variants[0].id }}" data-name="{{ card_product.title }}" data-price="{{ card_product.price }}" data-image="{{ card_product.featured_media | img_url: 'large' }}" data-link="{{ card_product.url }}">Popup</button>
-              <button class="modal-trigger-button" data-modal="#modal-{{ card_product.id }}">Open Modal</button>
             </div>
           </div>
-          <div class="card__badge {{ settings.badge_position }}">
-            {%- if card_product.available == false -%}
-              <span
-                id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
-                class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
-              >
-                {{- 'products.product.sold_out' | t -}}
-              </span>
-            {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-              <span
-                id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
-                class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
-              >
-                {{- 'products.product.on_sale' | t -}}
-              </span>
-            {%- elsif card_product.tags contains 'new' -%}
-              <span
-                id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
-                class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
-              >
-                {{- 'products.product.new' | t -}}
-              </span>
-            {%- endif -%}
-          </div>
-        </div> <!-- This closes the Card content -->
+         
+        </div>
       </div>
     </div>
   </div>
@@ -72,7 +41,20 @@
 
 <!-- Popup modal -->
 <div class="popup-container">
-  <!-- ... (the rest of your popup modal code) -->
+  <div class="popup-container-content">
+    <div class="image-container">
+      <a class="popup-container-link" href="">
+        <img class="popup-container-image" src="">
+      </a>
+    </div>
+    
+    <div class="detail-container">
+      <img class="popup-container-close icon" src="https://t3.ftcdn.net/jpg/04/37/51/90/360_F_437519066_OLrSfrnBk5hioGeje96IZ0ejr8Xrozw3.jpg"/>
+      <p class="popup-container-title"></p>
+      <p class="popup-container-price"></p>
+      <button class="popup-container-sizechart">Size Chart</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -84,7 +66,17 @@
 
     modalTriggerButtons.forEach(function (button) {
       button.addEventListener('click', function () {
-        // ... (the rest of your popup button event listener code)
+        const element = button.getAttribute('data-name');
+        const price = button.getAttribute('data-price');
+        const image = button.getAttribute('data-image');
+        const link = button.getAttribute('data-link');
+
+        modalContent.querySelector('.popup-container-title').textContent = element;
+        modalContent.querySelector('.popup-container-price').textContent = price;
+        modalContent.querySelector('.popup-container-image').setAttribute('src', image);
+        modalContent.querySelector('.popup-container-link').setAttribute('href', link);
+
+        modal.style.display = 'flex';
       });
     });
 
@@ -96,83 +88,119 @@
 
 <style>
   /* Styling for the popup container */
-.popup-container {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
+  .popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
 
-.popup-container-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 80%;
-}
+  /* Rest of the styling for the popup container */
+  /* ... */
 
-.popup-container-image {
-  max-width: 100%;
-  height: auto;
-}
+  /* Styling for the modal */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
 
-.popup-container-close {
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-}
+<style>
+  /* Styling for the popup container */
+  .popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
 
-.popup-container-title {
-  font-size: 18px;
-  font-weight: bold;
-}
+  .popup-container-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
 
-.popup-container-price {
-  font-size: 16px;
-  margin-top: 10px;
-}
+  .popup-container-image {
+    max-width: 100%;
+    height: auto;
+  }
 
-.popup-container-sizechart {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-}
+  .popup-container-close {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
 
-/* Styling for the modal */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
+  .popup-container-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
 
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 80%;
-}
+  .popup-container-price {
+    font-size: 16px;
+    margin-top: 10px;
+  }
 
-.modal-open {
-  display: flex;
-}
+  .popup-container-sizechart {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  /* Styling for the modal */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+  }
+
+  .modal-open {
+    display: flex;
+  }
+</style>
 
 </style>
