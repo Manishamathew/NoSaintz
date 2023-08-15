@@ -55,29 +55,28 @@ data-flickity='{
 {% endfor %}
 
 {% comment %}
-{% for block in section.blocks %}
-{% assign block_product = all_products[block.settings.featured_product] %}
-{% assign block_first_variant = block_product.selected_or_first_available_variant %}
-{% assign featured_img_src = block_first_variant.featured_img.src | default: block_product.featured_image.src %}
-{% assign price = block_first_variant.price %}
-{% assign compare_at_price = block_first_variant.compare_at_price %}
+{% for product in collection_main.products limit: collection_limit %}
+{%- if product.metafields.inventory.ShappifyHidden == 'true' -%}{%- continue -%}{%- endif -%}
+{% assign first_variant = product.selected_or_first_available_variant %}
+{% assign featured_img_src = first_variant.featured_img.src | default: product.featured_image.src %}
+{% assign price = first_variant.price %}
+{% assign compare_at_price = first_variant.compare_at_price %}
 <div class="carousel__cell" style="width:{{ section.settings.cell_width }};margin-right:{{ section.settings.mr }}px">
-{% if block.settings.featured_product != blank %}
-<a href="{{ block_product.url }}">
-<img src="{{ featured_img_src | img_url: img_width }}" alt="{{ block_product.featured_img.alt }}" />
-</a>
-{% else %}
-{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-{% endif %}
-<a href="{{ block_product.url }}">
-<h5>{{ block_product.title }}</h5>
-</a>
-{% if compare_at_price > price %}
-<s class="block-product__compare-at-price">{{ compare_at_price | money }}</s>
-<p class="block-product__product-price">{{ price | money }}</p>
-{% else %}
-<p class="block-product__product-price">{{ price | money }}</p>
-{% endif %}
+  <a href="{{ product.url }}">
+    <img src="{{ featured_img_src | img_url: img_width }}" alt="{{ product.featured_img.alt }}" />
+  </a>
+  <a href="{{ product.url }}">
+    <h5>{{ product.title }}</h5>
+  </a>
+  {% if compare_at_price > price %}
+    <s class="product__compare-at-price">{{ compare_at_price | money }}</s>
+    <p class="product__product-price">{{ price | money }}</p>
+  {% else %}
+    <p class="product__product-price">{{ price | money }}</p>
+  {% endif %}
+  {% if section.settings.image_zoom == 'hover' %}
+    <script id="EnableZoomOnHover-featured" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
+  {% endif %}
 </div>
 {% endfor %}
 {% endcomment %}
