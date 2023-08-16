@@ -3514,8 +3514,8 @@ details-disclosure > details {
 }
  .newbadges {
  
-    /* top: -185px;
-    position: absolute; */
+    top: -185px;
+    position: absolute;
    width:50px;
 
 }
