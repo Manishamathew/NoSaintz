@@ -3512,12 +3512,13 @@ details-disclosure > details {
   }
   
 }
- /* .newbadges {
+ .newbadges {
  
-    top: -185px;
-    position: absolute;
+    /* top: -185px;
+    position: absolute; */
+   width:20px;
 
-} */
+}
 
 .newbadges p {
   background-color: yellow;
