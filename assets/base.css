@@ -3513,8 +3513,10 @@ details-disclosure > details {
   
 }
   .newbadges {
-position:absolute;
-    top:-180;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .newbadges p {
