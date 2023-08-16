@@ -482,6 +482,7 @@
     },
     "e2c96e70-a388-4e81-93af-9a7420789a19": {
       "type": "feature-slider",
+      "disabled": true,
       "custom_css": [
         ".flickity-prev-next-button.next {right: -78px;}",
         ".flickity-prev-next-button.previous {left: -52px;}",
