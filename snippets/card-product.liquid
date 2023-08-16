@@ -101,6 +101,13 @@
                 </div>
               {% endif %}
             </div>
+             <div class="newbadges">
+         
+                  {% if card_product.tags contains settings.tag %}
+                    <p>this</p>
+                  <p>{{settings.tag}}</p> 
+                  {% endif %}
+                </div>
           </div>
         </div>
       </div>
@@ -123,13 +130,7 @@
         
       </div>
           
-      <div class="newbadges">
-         
-                  {% if card_product.tags contains settings.tag %}
-                    <p>this</p>
-                  <p>{{settings.tag}}</p> 
-                  {% endif %}
-                </div>
+     
     </div>
   </div>
     <!-- <img class="icon sizechart-button" src="https://t3.ftcdn.net/jpg/04/37/51/90/360_F_437519066_OLrSfrnBk5hioGeje96IZ0ejr8Xrozw3.jpg" />
