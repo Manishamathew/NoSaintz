@@ -3512,3 +3512,23 @@ details-disclosure > details {
   }
   
 }
+  .newbadges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.newbadges p {
+  background-color: blue;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin: 0;
+}
+
+
+.newbadges p.tag-badge {
+  background-color: #4285f4;
+  color: #ffffff;
+}
