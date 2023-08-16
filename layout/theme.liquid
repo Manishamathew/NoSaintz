@@ -280,14 +280,7 @@
       {{ 'accessibility.skip_to_text' | t }}
       
     </a>
-     <div class="newbadges">
-        
-                  {% if card_product.tags contains settings.tag %}
-                    <p>hello</p>
-                  
-                  <p>{{settings.tag}}</p> 
-                  {% endif %}
-                </div>
+    
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}
