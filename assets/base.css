@@ -3523,6 +3523,10 @@ details-disclosure > details {
 .new-badges{
   top:0;
 }
+.new-badges p{
+  top:0;
+  background-color:yellow;
+}
 
 
 .newbadges p {
