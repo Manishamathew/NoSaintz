@@ -58,6 +58,7 @@
                 width="{{ card_product.featured_media.width }}"
                 height="{{ card_product.featured_media.height }}"
               >
+           {{ card_product.title | escape }}
            </a>
               {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
             </div>
@@ -73,7 +74,7 @@
             {% endif %}
           >
 
-        {{ card_product.title | escape }}
+       
 
 
        
