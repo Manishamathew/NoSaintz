@@ -76,14 +76,7 @@
       </div>
     {%- endif -%}
   </noscript>
-  <div class="newbadges">
-        
-                  {% if card_product.tags contains settings.tag %}
-                    <p>hello</p>
-                  
-                  <p>{{settings.tag}}</p> 
-                  {% endif %}
-                </div>
+
   <modal-opener class="product__modal-opener product__modal-opener--{{ media.media_type }} no-js-hidden" data-modal="#ProductModal-{{ modal_id }}">
 
         
@@ -117,6 +110,7 @@
         sizes: sizes,
         widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
       }}
+      <h1>Hello</h1>
     </div>
     <button class="product__media-toggle quick-add-hidden product__media-zoom-{{ section.settings.image_zoom }}" type="button" aria-haspopup="dialog" data-media-id="{{ media.id }}">
       <span class="visually-hidden">
