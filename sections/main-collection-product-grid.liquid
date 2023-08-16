@@ -145,7 +145,13 @@
         {%- else -%}
           <div class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}">
             <div class="loading-overlay gradient"></div>
-
+  <div class="newbadges">
+        
+                  {% if card_product.tags contains settings.tag %}
+                  
+                  <p>{{settings.tag}}</p> 
+                  {% endif %}
+                </div>
             <ul
               id="product-grid"
               data-id="{{ section.id }}"
@@ -154,6 +160,7 @@
                 grid--{{ section.settings.columns_desktop }}-col-desktop
               "
             >
+          
               {%- for product in collection.products -%}
                 {% assign lazy_load = false %}
                 {%- if forloop.index > 2 -%}
