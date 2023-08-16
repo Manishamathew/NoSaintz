@@ -3522,6 +3522,7 @@ details-disclosure > details {
 }
 .new-badges{
   top:0;
+    background-color:yellow;
 }
 .new-badges p{
   top:0;
