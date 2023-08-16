@@ -1466,7 +1466,7 @@
       {
         "id": "tag",
         "type": "text",
-        "label": "New Tags"
+        "label": "Enter tags"
       }
     ]
   }
