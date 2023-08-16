@@ -89,6 +89,13 @@
       
                     </h3>
               <div class="product-price">
+                    <div class="newbadges">
+         <p>this</p>
+                  {% if card_product.tags contains settings.tag %}
+                  
+                  <p>{{settings.tag}}</p> 
+                  {% endif %}
+                </div>
                 {% render 'price', product: card_product, show_compare_at_price: true %}
               </div>
               <button class="popup-open button" data-id="{{ card_product.id }}">Popup</button>
@@ -101,13 +108,7 @@
                 </div>
               {% endif %}
             </div>
-             <div class="newbadges">
-         <p>this</p>
-                  {% if card_product.tags contains settings.tag %}
-                  
-                  <p>{{settings.tag}}</p> 
-                  {% endif %}
-                </div>
+         
           </div>
         </div>
       </div>
