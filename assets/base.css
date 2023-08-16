@@ -167,7 +167,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   margin-top: var(--spacing-sections-mobile);
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 750productpx) {
   .section + .section {
     margin-top: var(--spacing-sections-desktop);
   }
@@ -3513,14 +3513,12 @@ details-disclosure > details {
   
 }
   .newbadges {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+position:absolute;
+    top:0
 }
 
 .newbadges p {
-  background-color: blue;
+  background-color: yellow;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
