@@ -13,7 +13,7 @@
         "template--20436624802082__0b152930-f606-4215-be70-ce994e87fb71-heading-1": {
           "type": "heading",
           "settings": {
-            "heading": "About Us",
+            "heading": "",
             "heading_size": "h1"
           }
         },
@@ -26,7 +26,7 @@
         "template--20436624802082__0b152930-f606-4215-be70-ce994e87fb71-button-1": {
           "type": "button",
           "settings": {
-            "button_label": "Button label",
+            "button_label": "",
             "button_link": "",
             "button_style_secondary": false,
             "button_label_2": "",
