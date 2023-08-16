@@ -76,10 +76,7 @@
       </div>
     {%- endif -%}
   </noscript>
-
-  <modal-opener class="product__modal-opener product__modal-opener--{{ media.media_type }} no-js-hidden" data-modal="#ProductModal-{{ modal_id }}">
-
-          <div class="newbadges">
+  <div class="newbadges">
         
                   {% if card_product.tags contains settings.tag %}
                     <p>hello</p>
@@ -87,6 +84,9 @@
                   <p>{{settings.tag}}</p> 
                   {% endif %}
                 </div>
+  <modal-opener class="product__modal-opener product__modal-opener--{{ media.media_type }} no-js-hidden" data-modal="#ProductModal-{{ modal_id }}">
+
+        
     <span class="product__media-icon motion-reduce quick-add-hidden{% if media.media_type == 'image' %} product__media-icon--{{ section.settings.image_zoom }}{% endif %}" aria-hidden="true">
       {%- liquid
         case media.media_type
